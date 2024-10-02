@@ -1,0 +1,247 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px 40px;
+    background: linear-gradient(135deg, #f00842, #f00842);
+    color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 4px solid #c75773;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+}
+
+.logo {
+    flex: 1;
+}
+
+.logo img {
+    background-color: #f0e6ec;
+    width: 150px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px #0000004d;
+}
+
+#Cadastro {
+    background-color: #f00842;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 1000px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 80px;
+    top: 40px;
+    right: 80px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#Cadastro:hover {
+    color: #dadada;
+    transform: scale(1.05);
+}
+
+#Cadastro .material-symbols-outlined {
+    font-size: 100px;
+    margin-right: 0px;
+}
+
+#pesquisa {
+    position: relative;
+    width: 50%;
+    max-width: 500px;
+    margin: 20px auto;
+    right: 44%;
+}
+
+#pesquisa input {
+    width: 150%;
+    padding: 30px 40px 30px 40px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#pesquisa input::placeholder {
+    color: #aaa;
+}
+
+#pesquisa input:focus {
+    border-color: #f00842;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#pesquisa .material-symbols-outlined {
+    position: absolute;
+    right: -220px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #f00842;
+    font-size: 24px;
+    pointer-events: none;
+}
+
+nav {
+    top: 10%;
+    right: 450px;
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    margin-left: 550px;
+}
+
+nav ul {
+    margin-top: 13%;
+    display: flex;
+    list-style: none;
+    gap: 200px;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+nav a:hover {
+    color: #000000;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+#banner {
+    background-color: #ebebeb;
+    margin-top: 8%;
+    height: 1%;
+}
+
+#banner img {
+    margin-top: 2.2%;
+    margin-left: 18%;
+    width: 60%;
+    height: 500px;
+    border-radius: 100px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+#produtos {
+    margin: 80px 0;
+    padding: 0 25px;
+}
+
+#produtos h2 {
+    font-size: 36px;
+    margin-bottom: 25px;
+    color: #f00842;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.produto-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+}
+
+.produto {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 320px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.produto:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.produto img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 6px solid #f00842;
+}
+
+.produto figcaption {
+    padding: 20px;
+}
+
+.produto h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+}
+
+.produto p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.produto span {
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    color: #f00842;
+    margin-bottom: 15px;
+}
+
+.produto button {
+    background-color: #f00842;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 35px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.produto button:hover {
+    background-color: #ff4f4f;
+    transform: scale(1.05);
+}
+
+footer {
+    background-color: #222222;
+    color: #fff;
+    text-align: center;
+    padding: 25px;
+    border-top: 4px solid #f00842;
+    box-shadow: 0 -6px 12px #0000001a;
+}
+
+#contato-info {
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+#twitter img {
+    width: 40px;
+}
+
+#direitos {
+    font-size: 12px;
+    margin-top: 12px;
+}
