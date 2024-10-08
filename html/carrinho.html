@@ -1,49 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho</title>
-    <link rel="stylesheet" href="/css/carrinho.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script src="carrinho.js" defer></script>
+    <title>Carrinho - FourSHOP</title>
+    <link rel="stylesheet" href="../css/carrinho.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
+    <header>
+        <h1>Carrinho de Compras</h1>
+    </header>
 
-    
-    <section class="cont-tabela">
-    <table class="tabela">
-        <tr>
-        <th id="Produto">Produto</th>
-        <th id="Preço">Preço</th>
-        <th id="Quantidade">Quantidade</th>
-        </tr>
-    </table>
-    </section>
+    <main>
+        <div id="carrinho-container"></div>
+        <p id="mensagem-vazio" style="display: none;">Seu carrinho está vazio.</p>
+        
+        <div id="cupom-container" style="display: none;">
+            <input type="text" id="cupom" placeholder="Digite seu cupom">
+            <button onclick="aplicarCupom()">Aplicar</button>
+        </div>
 
-    <section class="cont-tabela">
-        <table class="tabela">
-            <tr>
-            <p id="Subtotal">Produto</p>
-            <p id="Enytrega ">Preço</p>
-            <p id="Total">Quantidade</p>
-            </tr>
-        </table>
-        </section>
+        <p id="subtotal"></p>
+        <p id="entrega"></p>
+        <p id="total"></p>
 
-    <section id="f_pagamento">
-        <li><img src="produtosepa/" alt=""></li>
-        <li><img src="produtosepa/" alt=""></li>
-        <li><img src="produtosepa/" alt=""></li>
-        <li><img src="produtosepa/" alt=""></li>
-        <li><img src="produtosepa/" alt=""></li>
-    </section>
+        <button id="finalizar-btn" style="display: none;" onclick="finalizarCompra()">Finalizar Compra</button>
+        <button id="voltar-btn" style="display: none;" onclick="voltarParaProdutos()">Adicionar mais produtos</button>
+    </main>
 
-    <section id="Resumo-compra">
+    <footer>
+        <p id="contato-info">Contato: (75) 8126-9962 | Email: joao.v.carvalho8@ba.estudante.senai.br</p>
+        <p id="direitos">© 2024 FourSHOP. Todos os direitos reservados</p>
+    </footer>
 
-        <p id="total-compra">R$ 0,00</p>
-        <button id="Finalizar-compra">Finalizar compra</button>
-    </section>
+    <script>
+        const carrinhoContainer = document.getElementById('carrinho-container');
+        const mensagemVazio = document.getElementById('mensagem-vazio');
+        const subtotalElement = document.getElementById('subtotal');
+        const entregaElement = document.getElementById('entrega');
+        const totalElement = document.getElementById('total');
+        const cupomContainer = document.getElementById('cupom-container');
+        const finalizarBtn = document.getElementById('finalizar-btn');
+        const voltarBtn = document.getElementById('voltar-btn');
+
+        const taxaEntrega = 10.00;
+
+        function atualizarCarrinho() {
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            carrinhoContainer.innerHTML = '';
+
+            if (carrinho.length === 0) {
+                mensagemVazio.style.display = 'block';
+                subtotalElement.style.display = 'none';
+                entregaElement.style.display = 'none';
+                totalElement.style.display = 'none';
+                cupomContainer.style.display = 'none';
+                finalizarBtn.style.display = 'none';
+                voltarBtn.style.display = 'none';
+            } else {
+                mensagemVazio.style.display = 'none';
+                subtotalElement.style.display = 'block';
+                entregaElement.style.display = 'block';
+                totalElement.style.display = 'block';
+                cupomContainer.style.display = 'block';
+                finalizarBtn.style.display = 'block';
+                voltarBtn.style.display = 'block';
+                let subtotal = 0;
+
+                carrinho.forEach((item, index) => {
+                    const itemArticle = document.createElement('article');
+                    itemArticle.classList.add('item');
+                    itemArticle.innerHTML = `
+                        <img src="${item.imagem}" alt="${item.nome}" class="imagem-produto">
+                        <h3>${item.nome}</h3>
+                        <p>Preço: R$ ${item.preco}</p>
+                        <button onclick="deletarItem(${index})">Deletar</button>
+                        <div class="quantidade">
+                            <button onclick="alterarQuantidade(${index}, -1)">-</button>
+                            <span>${item.quantidade}</span>
+                            <button onclick="alterarQuantidade(${index}, 1)">+</button>
+                        </div>
+                    `;
+                    carrinhoContainer.appendChild(itemArticle);
+                    
+                    const precoNumerico = parseFloat(item.preco.replace('R$ ', '').replace(',', '.'));
+                    subtotal += precoNumerico * item.quantidade;
+                });
+
+                subtotalElement.textContent = `Subtotal: R$ ${subtotal.toFixed(2)}`;
+                totalElement.textContent = `Total: R$ ${(subtotal + taxaEntrega).toFixed(2)}`;
+                entregaElement.textContent = `Entrega: R$ ${taxaEntrega.toFixed(2)}`;
+            }
+        }
+
+        function aplicarCupom() {
+            alert('Cupom aplicado com sucesso!');
+        }
+
+        function voltarParaProdutos() {
+            window.location.href = 'fourshop.html';
+        }
+
+        function finalizarCompra() {
+            Swal.fire({
+                title: 'Confirmar Compra?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#f00842',
+                cancelButtonColor: '#f00842',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Compra realizada com sucesso!',
+                        'O item chegará em breve.',
+                        'success'
+                    )
+                }
+            });
+        }
+
+        function alterarQuantidade(index, delta) {
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            if (carrinho[index].quantidade + delta <= 0) {
+                deletarItem(index);
+            } else {
+                carrinho[index].quantidade += delta;
+                localStorage.setItem('carrinho', JSON.stringify(carrinho));
+                atualizarCarrinho();
+            }
+        }
+
+        function deletarItem(index) {
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            carrinho.splice(index, 1);
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            atualizarCarrinho();
+        }
+
+        atualizarCarrinho();
+    </script>
+
 </body>
 </html>
